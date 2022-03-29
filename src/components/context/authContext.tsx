@@ -1,5 +1,4 @@
 
-import Firebase from '../firebase/firebase';
 
 import {
   createContext,
@@ -10,6 +9,7 @@ import {
 
 } from "react";
 
+import Firebase from '../firebase/firebase';
 /* funcoes do firebase para exportar como context */
 import {
   getAuth,
@@ -20,7 +20,7 @@ import {
 } from "firebase/auth";
 
 
-export const AuthContext = createContext({});
+
 
 type AuthContextProviderProps = {
   /* ReactNode, vem de dentro do proprio
@@ -30,13 +30,32 @@ type AuthContextProviderProps = {
   children: ReactNode;
 }
 
+/* como boas praticas de typagem, eh importante definir cada tipo para as variaveis
+isso ajuda em varios casos onde vc nao sabe oque pode vir ou ir, e isso define como
+eles deveriam se comportar, logo para cada dado do context definimos seu tipo
+*/
+
+type AuthContextData = {
+  loading: boolean,
+  currentUser: any,
+  SignUp: (email: string, password: string) => any;//vai retornar alguma coisa, nesse caso se deu certo ou errado
+  Login: (email: string, password: string) => any;//vai retornar alguma coisa, nesse caso se deu certo ou errado
+  Logout: () => any; //funcao vazia que retorna se deu certo
+  auth: any;
+}
+
+export const AuthContext = createContext({} as AuthContextData);
+
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
-
+  //recebe todas as propriedades ao chamar getAuth, podendo entao...
+  //...receber os users do Firebase
   const auth = getAuth(Firebase);
 
-  const [currentUser, setCurrentUser] = useState();
-  const [loading, setLoading] = useState(true);
+  //<any> pois nao se sabe oque pode vir, sendo o current user ou nada
+  const [currentUser, setCurrentUser] = useState<any>();
+  //boolean
+  const [loading, setLoading] = useState<boolean>(true);
 
   //SignUp
   function SignUp(email: string, password: string) {
@@ -67,20 +86,24 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user)
-      setLoading(false)
+      setCurrentUser(user);
+      setLoading(false);
 
-    })
+    });
 
-    return unsubscribe //quando
-  }, [auth])
+    return unsubscribe //quando auth mudar, ou seja, se ele receber um currentUser
+    //ou se ele na otiver nd, ele vai alterar
+  }, [auth]);
 
   return (
     <AuthContext.Provider
       value={{
+        currentUser,
+        loading,
         SignUp,
         Login,
-        Logout
+        Logout,
+        auth
       }}
     >
       {children}

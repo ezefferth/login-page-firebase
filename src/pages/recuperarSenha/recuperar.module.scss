@@ -76,6 +76,9 @@
       background: rgba(0, 0, 0, 0.4);
     }
   }
+  .button:active {
+    transform: scale(0.98);
+  }
 
   .voltar {
     text-align: center;

@@ -53,6 +53,10 @@
         height: 2rem;
         background: transparent;
       } //input
+      .input::placeholder{/* cor do placeholder pois o padrao eh muito escuro */
+        color: #fff;
+        opacity: 0.9;
+      }
     } //inputs
   } //input group
 
@@ -77,10 +81,13 @@
       background: rgba(0, 0, 0, 0.4);
     }
   }
+  .button:active {
+    transform: scale(0.98);
+  }
 
   .voltar {
     text-align: center;
-    padding-top: 5rem;
+    padding-top: 4rem;
 
     div {
       display: flex;
