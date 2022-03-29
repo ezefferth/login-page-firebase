@@ -1,0 +1,64 @@
+.container {
+  // margin: 0 auto;
+  display: block;
+  position: relative;
+}
+
+.login {
+  position: relative;
+  margin-top: 1rem;
+
+  background-color: rgba(0, 0, 0, 0.4);
+
+  margin: 4rem auto;
+  width: 25rem;
+  height: 40rem;
+
+  h1 {
+    text-align: center;
+    padding-top: 1rem;
+    color: #fff;
+  }
+
+  //text-align: center;
+
+  /* centralizando a div */
+  /*   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; */
+
+  .inputs {
+    .icon {
+      color: #fff;
+      
+    }
+    .input{
+      border: none;
+      border-radius: px;
+      color: #fff;
+      width: 10rem;
+      height: 2rem;
+      background: transparent;
+    }
+  }
+}
+
+/* .main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* .footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 5rem;
+  background-color: rgb(0, 0, 0);
+  color: white;
+} */

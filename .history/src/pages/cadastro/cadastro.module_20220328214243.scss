@@ -1,0 +1,103 @@
+.container {
+  // margin: 0 auto;
+  display: block;
+  position: relative;
+  border-radius: 5px;
+}
+
+.recuperar {
+  position: relative;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  margin-top: calc(48vh - 300px); //calcula metade da altura - metade da div vertical
+  margin-left: calc(50vw - 200px); //calcula metade da largura - metade da div horizontal
+  width: 400px;
+  height: 400px;
+
+  h1 {
+    text-align: center;
+    padding-top: 2rem;
+    color: #fff;
+  }
+
+  .inputGroup {
+    padding-top: 1.5rem; //distancia dos input
+    .inputs {
+      padding-top: 1rem;
+
+      //justify-content: center;
+      //align-items: center;
+      text-align: center;
+
+      span {
+        /* ajustando margin do icon com o input */
+        padding-right: 0.5rem;
+      }
+
+      .icon {
+        color: #fff;
+        transition: filter 0.2s; //tempo para escurecer
+      }
+      .icon:hover {
+        filter: brightness(0.7); //escurecer
+      }
+
+      .input {
+        padding-left: 0.5rem; //posicao mais a direita do text
+        border: none;
+        border-bottom: 1.5px solid #fff;
+        //border-radius: 1px;
+        color: #fff;
+        width: 14rem;
+        height: 2rem;
+        background: transparent;
+      } //input
+    } //inputs
+  } //input group
+
+  .button {
+    padding-top: 2.25rem; //1rem do forgot
+    text-align: center; //centraliza do btn
+    button {
+      width: 15rem;
+      height: 2rem;
+      text-align: center;
+      border: none;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.5); //background em cima do outro background
+      border-radius: 15px;
+    }
+
+    transition: filter 0.2s; //tempo para escurecer
+  } //button
+  .button:hover {
+    filter: brightness(0.9);
+    button {
+      background: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  .voltar {
+    text-align: center;
+    padding-top: 5rem;
+
+    div {
+      display: flex;
+      justify-content: center;
+
+      span {
+        color: #fff;
+      }
+      p {
+        color: #fff;
+        transition: color 0.3s, filter 0.3s;
+        cursor: pointer;
+      }
+      p:hover {
+        filter: brightness(0.9);
+        color: rgb(17, 17, 167);
+      }
+    }
+  }
+}
