@@ -1,11 +1,30 @@
 import Link from 'next/link'
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import styles from './recuperar.module.scss';
 import { FaUserCircle } from 'react-icons/fa';
 
+import { useAuth } from '../../components/context/authContext';
+
+
+import { useEffect } from 'react';
+
 export default function recuperarSenha() {
 
+  const {
+    currentUser
+  } = useAuth();
 
+
+
+  const router = useRouter();
+
+  useEffect(() => {
+    /* se existe current user quer dizer que ja estava logado */
+    if (currentUser) {
+      router.push('/home');
+    }
+  }, [currentUser]);
 
   return (
     <div className={styles.container}>

@@ -1,0 +1,36 @@
+
+.containerNav{
+
+  span{/* cor de todos span */
+    color: #fff;
+  }
+  .aboutMe{
+    cursor: pointer;
+    padding-right: 1.5rem;
+    opacity: 0.7;
+    transition: filter 0.3s;
+  }
+  .aboutMe:hover{
+    filter: brightness(0.8);
+  }
+
+  .about{
+    cursor: pointer;
+    padding-right: 5rem;
+    opacity: 0.85;
+    transition: filter 0.3s;
+  }
+  .about:hover{
+    filter: brightness(0.8);
+  }
+
+  .sair{
+    cursor: pointer;
+    transition: filter 0.3s;
+  }
+  .sair:hover{
+    filter: brightness(0.8);
+  }
+
+}
+

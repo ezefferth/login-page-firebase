@@ -60,6 +60,10 @@
         height: 2rem;
         background: transparent;
       } //input
+      .input::placeholder{/* cor do placeholder pois o padrao eh muito escuro */
+        color: #fff;
+        opacity: 0.9;
+      }
     } //inputs
   } //input group
   .forgotPassword {
