@@ -5,9 +5,7 @@ import {
   createContext,
   useState,
   ReactNode,
-  useContext,
-  useEffect
-
+  useContext
 } from "react";
 
 /* funcoes do firebase para exportar como context */
@@ -35,8 +33,6 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
   const auth = getAuth(Firebase);
 
-  const [currentUser, setCurrentUser] = useState();
-  const [loading, setLoading] = useState(true);
 
   //SignUp
   function SignUp(email: string, password: string) {
@@ -51,36 +47,10 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     return signOut(auth)
   }
 
-  /*  
-      function ResetPassword(email) {
-          return auth.sendPasswordResetEmail(email)
-      }
-   
-      function UpdateEmail(email) {
-          return currentUser.updateEmail(email)
-      }
-   
-      function UpdatePassword(password) {
-          return currentUser.updatePassword(password)
-      } */
-
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user)
-      setLoading(false)
-
-    })
-
-    return unsubscribe //quando
-  }, [auth])
-
   return (
     <AuthContext.Provider
       value={{
-        SignUp,
-        Login,
-        Logout
+
       }}
     >
       {children}

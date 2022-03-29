@@ -5,9 +5,7 @@ import {
   createContext,
   useState,
   ReactNode,
-  useContext,
-  useEffect
-
+  useContext
 } from "react";
 
 /* funcoes do firebase para exportar como context */
@@ -63,17 +61,6 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
       function UpdatePassword(password) {
           return currentUser.updatePassword(password)
       } */
-
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user)
-      setLoading(false)
-
-    })
-
-    return unsubscribe //quando
-  }, [auth])
 
   return (
     <AuthContext.Provider

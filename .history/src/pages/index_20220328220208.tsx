@@ -2,8 +2,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 
-import { useState } from 'react';
-
+//import Image from 'next/image'
 import styles from './login.module.scss';
 
 import {
@@ -17,18 +16,13 @@ import { RiLockPasswordFill } from 'react-icons/ri'
 
 
 
-/* export esta abaixo */
+
 function Login() {
-
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
-
   return (
     <div className={styles.container}>
 
       <Head>{/* head eh o titulo da aba */}
-        <title>Login Page</title>
+        <title>Login Page Firebase</title>
       </Head>
 
       <div className={styles.login}>
