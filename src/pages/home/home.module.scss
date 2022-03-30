@@ -1,36 +1,65 @@
+.container {
+  display: block;
+  position: relative;
+  border-radius: 5px;
 
-.containerNav{
+  .containerDiv {
+    position: relative;
 
-  span{/* cor de todos span */
-    color: #fff;
-  }
-  .aboutMe{
-    cursor: pointer;
-    padding-right: 1.5rem;
-    opacity: 0.7;
-    transition: filter 0.3s;
-  }
-  .aboutMe:hover{
-    filter: brightness(0.8);
-  }
+    background-color: rgba(0, 0, 0, 0.5);
 
-  .about{
-    cursor: pointer;
-    padding-right: 5rem;
-    opacity: 0.85;
-    transition: filter 0.3s;
-  }
-  .about:hover{
-    filter: brightness(0.8);
+    margin-top: calc(48vh - 300px); //calcula metade da altura - metade da div vertical
+    margin-left: calc(50vw - 200px); //calcula metade da largura - metade da div horizontal
+    width: 400px;
+    height: 400px;
   }
 
-  .sair{
-    cursor: pointer;
-    transition: filter 0.3s;
-  }
-  .sair:hover{
-    filter: brightness(0.8);
+  .bemVindo {
+    position: relative;
+    text-align: center;
+    padding-top: 40vh;
+
+
+    p {
+      color: white;
+      font-size: 80px;
+    }
   }
 
+  .containerNav {
+    .loginPageApp{
+      cursor: pointer;
+    }
+    span {
+      /* cor de todos span */
+      color: #fff;
+    }
+    .aboutMe {
+      cursor: pointer;
+      padding-right: 1.5rem;
+      opacity: 0.7;
+      transition: filter 0.3s;
+    }
+    .aboutMe:hover {
+      filter: brightness(0.8);
+    }
+
+    .about {
+      cursor: pointer;
+      padding-right: 5rem;
+      opacity: 0.85;
+      transition: filter 0.3s;
+    }
+    .about:hover {
+      filter: brightness(0.8);
+    }
+
+    .sair {
+      cursor: pointer;
+      transition: filter 0.3s;
+    }
+    .sair:hover {
+      filter: brightness(0.8);
+    }
+  }
 }
-
