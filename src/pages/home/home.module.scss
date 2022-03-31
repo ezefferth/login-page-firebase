@@ -8,10 +8,48 @@
 
     background-color: rgba(0, 0, 0, 0.5);
 
-    margin-top: calc(48vh - 300px); //calcula metade da altura - metade da div vertical
+    margin-top: calc(48vh - 250px); //calcula metade da altura - metade da div vertical
     margin-left: calc(50vw - 200px); //calcula metade da largura - metade da div horizontal
     width: 400px;
-    height: 400px;
+    height: 300px;
+
+    .divAboutMe {
+      //animation para apreceber devagar
+      animation-name: toShowAboutMe;
+      animation-duration: 1s;
+      p {
+        color: #fff;
+        //text-align: justify;
+        font-size: 18px; //tamanho text
+        padding: 0.5rem 0.5rem 0 0.5rem; //ajustar text para mais dentro da div
+      }
+    }
+    @keyframes toShowAboutMe {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    .divAbout {
+      animation-name: toShowAbout;
+      animation-duration: 1s;
+      p {
+        color: #fff;
+        //text-align: justify;
+        font-size: 18px;
+        padding: 0.5rem 0.5rem 0 0.5rem;
+      }
+    }
+    @keyframes toShowAbout {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
   }
 
   .bemVindo {
@@ -19,47 +57,128 @@
     text-align: center;
     padding-top: 40vh;
 
-
     p {
+      //p dentro do .bemVindo
       color: white;
       font-size: 80px;
+      text-shadow: 1px 1px 2px black; //shadow do texto
+      animation-name: toShow;
+      animation-duration: 2s;
+      transition: font-size 0.5s;
+    }
+    @keyframes toShow {
+      from {
+        font-size: 20px;
+      }
+      to {
+        font-size: 80px;
+      }
+    }
+
+    p:hover {
+      font-size: 110px;
     }
   }
 
-  .containerNav {
-    .loginPageApp{
-      cursor: pointer;
-    }
-    span {
-      /* cor de todos span */
-      color: #fff;
-    }
-    .aboutMe {
-      cursor: pointer;
-      padding-right: 1.5rem;
-      opacity: 0.7;
-      transition: filter 0.3s;
-    }
-    .aboutMe:hover {
-      filter: brightness(0.8);
-    }
+  .navbar {
+    background: rgba(0, 0, 0, 0.7);
+    .containerNav {
+      .loginPageApp {
+        cursor: pointer;
+        transition: filter 0.2s;
+      }
+      .loginPageApp:hover {
+        filter: brightness(0.8);
+      }
+      span {
+        /* cor de todos span */
+        color: #fff;
+      }
+      .aboutMe {
+        cursor: pointer;
+        padding-right: 1.5rem;
+        opacity: 0.7;
+        transition: filter 0.3s;
+      }
+      .aboutMe:hover {
+        filter: brightness(0.8);
+      }
 
-    .about {
-      cursor: pointer;
-      padding-right: 5rem;
-      opacity: 0.85;
-      transition: filter 0.3s;
-    }
-    .about:hover {
-      filter: brightness(0.8);
-    }
+      .about {
+        cursor: pointer;
+        padding-right: 5rem;
+        opacity: 0.85;
+        transition: filter 0.3s;
+      }
+      .about:hover {
+        filter: brightness(0.8);
+      }
 
-    .sair {
-      cursor: pointer;
-      transition: filter 0.3s;
+      .sair {
+        cursor: pointer;
+        transition: filter 0.3s;
+      }
+      .sair:hover {
+        filter: brightness(0.8);
+      }
+    } //fim containerNav
+  } //fim navbar
+
+  .footer {
+    width: 100vw;
+    height: 5vh;
+    position: fixed;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    transition: height 0.5s;
+
+    .onFooter {
+      width: 100vw;
+      bottom: 0;
+      position: fixed;
+      text-align: center;
+      justify-content: center;
+      padding-bottom: 0.5rem;
+
+/*       .trace {
+        margin-left: 10rem;
+        margin-right: 10rem;
+        margin-bottom: 0.7rem;
+        border-top: 1px solid var(--gray-100);
+      } */
+      span {
+        font-size: 12px;
+        color: #fff;
+        padding-bottom: 1rem;
+      }
+
+      .colOne, .colTwo{
+        width: 30vw;
+        color: #fff;
+        text-align: left;
+        padding-left: 4rem;
+      }
+
+
     }
-    .sair:hover {
-      filter: brightness(0.8);
+    .outFooter {
+      width: 100vw;
+      bottom: 0;
+      position: fixed;
+      text-align: center;
+      justify-content: center;
+      padding-bottom: 0.5rem;
+
+      span {
+        font-size: 12px;
+        color: #fff;
+        padding-bottom: 1rem;
+        //margin-top: 0.5rem;
+      }
     }
   }
-}
+  .footer:hover {
+    height: 20vh;
+  }
+} //fim container
