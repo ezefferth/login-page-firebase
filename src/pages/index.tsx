@@ -7,6 +7,9 @@ import { useEffect, useState } from 'react';
 
 import styles from './login.module.scss';
 
+
+import { unlink, GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
+
 import {
   FaUserCircle,
   FaGoogle,
@@ -16,6 +19,7 @@ import {
 import { RiLockPasswordFill } from 'react-icons/ri'
 
 import { useAuth } from '../components/context/authContext';
+import Firebase from '../components/firebase/firebase';
 
 
 /* export esta abaixo */
@@ -23,7 +27,10 @@ function Login() {
 
   const {
     Login,
-    currentUser
+    SignWithGoogle,
+    SignWithGithub,
+    currentUser,
+    auth
   } = useAuth();
 
   const router = useRouter();
@@ -39,6 +46,25 @@ function Login() {
   const [password, setPassword] = useState('');
 
 
+  /* prompt error do github */
+  function promptUserForPassword() {
+
+    const senha = window.prompt('Digite sua Senha:');
+
+    if (senha !== null || senha !== '') {
+      return setPassword(senha!);
+    }
+  }
+  function getProviderForProviderId(id: any) {
+    switch (id) {
+      case auth.GitubAuthProvider.PROVIDER_ID:
+        return new GithubAuthProvider();
+
+      case auth.GoogleAuthProvider.PROVIDER_ID:
+        return new GoogleAuthProvider();
+    }
+  }
+
   async function handleLogin(e: any) {
     e.preventDefault();
 
@@ -53,8 +79,47 @@ function Login() {
     } catch {//da o alert do erro
       alert('Erro ao realizar o login, tente novamente!');
     }
-
   }
+
+  async function handleLoginGoogle() {
+    try {
+      await SignWithGoogle().then(() => {
+        router.push('/home');
+        return <>loading...</>
+      }).catch((error: any) => {
+        alert('Erro ao realizar o login, tente novamente!');
+        console.log('Erro no login with google', error)
+      })
+    }
+    catch {
+      console.log('Erro no login with google');
+    }
+  }
+  async function handleLoginGithub() {
+    try {
+      await SignWithGithub().then(() => {
+        router.push('/home');
+      }).catch((error: any) => {
+        console.log(error.customData);
+        console.log('error.credential: ',GithubAuthProvider.credentialFromError(error));
+
+        const credential: any = GithubAuthProvider.credentialFromError(error.credential);
+
+        const email = error.customData.email;
+
+        if (error.code === 'auth/account-exists-with-different-credential') {
+
+          alert('Esta email já possui cadastro');
+        }
+      });
+
+
+    }
+    catch {
+      console.log('Erro no login with github');
+    }
+  }
+
 
   return (
     <div className={styles.container}>
@@ -124,6 +189,7 @@ function Login() {
               <FaGoogle
                 size={'1.25rem'}
                 className={styles.iconLoginGoo}
+                onClick={handleLoginGoogle}
 
               />
             </span>
@@ -137,6 +203,7 @@ function Login() {
               <FaGithub
                 size={'1.4rem'}
                 className={styles.iconLoginGit}
+                onClick={handleLoginGithub}
               />
             </span>
           </div>
@@ -162,3 +229,39 @@ function Login() {
 }
 
 export default Login
+
+
+/*
+
+if (error.code === 'auth/account-exists-with-different-credential') {
+          // User's email already exists.
+          // The pending GitHub credential.
+          var pendingCred = error.credential;
+          // The provider account's email address.
+          var email = error.email;
+          // Get sign-in methods for this email.
+          fetchSignInMethodsForEmail(auth, email).then(function (methods) {
+            if (methods[0] === 'password') {
+              // Asks the user their password.
+              // In real scenario, you should handle this asynchronously.
+              var password = promptUserForPassword(); // TODO: implement promptUserForPassword.
+              auth.signInWithEmailAndPassword(email, password).then(function (result: any) {
+                // Step 4a.
+                return result.user.linkWithCredential(pendingCred);
+              }).then(function () {
+                // GitHub account successfully linked to the existing Firebase user.
+                router.push('/home');
+              });
+              return;
+
+            }
+             var provider = getProviderForProviderId(methods[0]);
+
+            auth.signInWithPopup(provider).then(function (result: any) {
+              result.user.linkAndRetrieveDataWithCredential(pendingCred).then(function (usercred: any) {
+                // Google account successfully linked to the existing Firebase user.
+                router.push('/home');
+              });
+            }); 
+          })
+        } */

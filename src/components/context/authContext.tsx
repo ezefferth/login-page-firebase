@@ -17,6 +17,10 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  GoogleAuthProvider,
+  signInWithPopup, 
+  GithubAuthProvider,
+  getRedirectResult
 } from "firebase/auth";
 
 
@@ -41,6 +45,8 @@ type AuthContextData = {
   SignUp: (email: string, password: string) => any;//vai retornar alguma coisa, nesse caso se deu certo ou errado
   Login: (email: string, password: string) => any;//vai retornar alguma coisa, nesse caso se deu certo ou errado
   Logout: () => any; //funcao vazia que retorna se deu certo
+  SignWithGoogle: () => any;
+  SignWithGithub: () => any;
   auth: any;
 }
 
@@ -68,6 +74,19 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   //Logout
   function Logout() {
     return signOut(auth)
+  }
+
+  function SignWithGoogle(){
+    const provider = new GoogleAuthProvider();
+
+    return signInWithPopup(auth, provider);
+
+  }
+  function SignWithGithub(){
+    const provider = new GithubAuthProvider();
+
+    return signInWithPopup(auth, provider);
+
   }
 
   /*  
@@ -103,6 +122,8 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         SignUp,
         Login,
         Logout,
+        SignWithGoogle,
+        SignWithGithub,
         auth
       }}
     >

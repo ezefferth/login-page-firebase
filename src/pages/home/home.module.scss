@@ -141,7 +141,7 @@
       justify-content: center;
       padding-bottom: 0.5rem;
 
-/*       .trace {
+      /*       .trace {
         margin-left: 10rem;
         margin-right: 10rem;
         margin-bottom: 0.7rem;
@@ -152,14 +152,56 @@
         color: #fff;
         padding-bottom: 1rem;
       }
-
-      .colOne, .colTwo{
-        width: 30vw;
-        color: #fff;
-        text-align: left;
-        padding-left: 4rem;
-      }
-
+      .trace{
+        border-top: 1px solid var(--gray-100);
+        margin-left: 15rem;
+        margin-right: 15rem;
+        transition: margin-left 0.5s, margin-right 0.5s;
+       }
+       .trace:hover{
+        margin-left: 25rem;
+        margin-right: 25rem;
+       }
+      .divRow {
+        //text-align: left;
+        .colOne,
+        .colTwo,
+        .colTree {
+          width: 20vw;
+          color: #fff;
+          text-align: left;
+          margin-left: 4rem;
+        }
+  
+        .colTwo {
+          .colTwoIcons {
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+            transition: filter 0.3s;
+            cursor: pointer;
+          }
+          .colTwoIcons:hover {
+            filter: brightness(0.8);
+          }
+        }
+        .colTree {
+          h5{
+            margin-top: 0;
+          }
+          .colTreeDiv {
+            display: flex;
+            .colTreeIcons {
+              margin-right: 0.5rem;
+              font-size: 1.25rem;
+              transition: filter 0.3s;
+              cursor: pointer;
+            }
+            .colTreeIcons:hover {
+              filter: brightness(0.8);
+            }
+          }
+        }
+      }//fim divRow
 
     }
     .outFooter {
@@ -173,12 +215,13 @@
       span {
         font-size: 12px;
         color: #fff;
-        padding-bottom: 1rem;
-        //margin-top: 0.5rem;
+        
       }
-    }
+    }//fimOutFoorter
+
+    
   }
-  .footer:hover {
+  .footer:hover {/* faz subir o tam do footer para 20vh */
     height: 20vh;
   }
 } //fim container

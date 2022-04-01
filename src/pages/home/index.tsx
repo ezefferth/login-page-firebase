@@ -6,8 +6,8 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import styles from './home.module.scss';
 
-import { FaTwitter, FaGithub, FaInstagram } from 'react-icons/fa';
-
+import { FaTwitter, FaGithub, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import { FiMail } from 'react-icons/fi';
 
 
 
@@ -94,6 +94,7 @@ export default function Home() {
 
             >Sobre a aplicação</span>
 
+
             <span className={styles.sair}
               onClick={Logout}
             >Sair</span>
@@ -136,9 +137,9 @@ export default function Home() {
         </div>
       )}
       <footer
-        className={styles.footer}
-        onMouseOver={() => setOnMouseFooter(true)}
-        onMouseOut={() => setOnMouseFooter(false)}
+        className={styles.footer}/* quando passar o mouse em cima do footer ele fica true e quando sai false */
+        onMouseEnter={() => setOnMouseFooter(true)}
+        onMouseLeave={() => setOnMouseFooter(false)}
       >
         <div
           className={onMouseFooter ? (
@@ -146,28 +147,55 @@ export default function Home() {
           ) : (
             styles.outFooter
           )}
-        >{
-            onMouseFooter && (
-              <div className='row' >
-                <div className={`col-sm ${styles.colOne}`}>
-                  one
-                </div>
-                <div className={`col-sm ${styles.colTwo}`}>
-                  
-                  <p>Follow me on</p>
-                  <FaGithub/>
-                  <FaTwitter/>
-                  <FaInstagram/>
+        >
+          {onMouseFooter && (
+            <div className={`row ${styles.divRow}`}>
+              <div className={`col-sm ${styles.colOne}`}>
+                <h5>About Me</h5>
+                <p>Um dev em busca de uma oportunidade!</p>
+              </div>
+              <div className={`col-sm ${styles.colTwo}`}>
 
+                <h5>Follow me on</h5>
+
+
+                <FaGithub
+                  className={styles.colTwoIcons}
+                  onClick={() => window.open('https://github.com/ezefferth', '_blank')}
+                />
+
+
+                <FaTwitter
+                  className={styles.colTwoIcons}
+                  onClick={() => window.open('https://twitter.com/ezefferth', '_blank')}
+                />
+                <FaInstagram
+                  className={styles.colTwoIcons}
+                  onClick={() => window.open('https://instagram.com/ezefferth', '_blank')}
+                />
+
+
+              </div>
+
+              <div className={`col-sm ${styles.colTree}`}>
+                <h5>Contact</h5>
+                <div className={styles.colTreeDiv}>
+                  <FaWhatsapp className={styles.colTreeIcons} /> <p> 65 9 9649-3590</p>
+                </div>
+                <div className={styles.colTreeDiv}>
+                  <FiMail className={styles.colTreeIcons} /> <p>ezefferth@gmail.com</p>
                 </div>
 
               </div>
 
-            )
-          }
-          
+            </div>
+
+          )}
+          <p className={styles.trace}></p>
 
           <span>Copyright &copy;{date}, Ezéfferth C A Fernandes. All Rights Reserved</span>
+
+
 
         </div>
 
