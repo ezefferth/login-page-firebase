@@ -18,9 +18,9 @@ import {
   signInWithEmailAndPassword,
   signOut,
   GoogleAuthProvider,
-  signInWithPopup, 
+  signInWithPopup,
   GithubAuthProvider,
-  getRedirectResult
+  unlink,
 } from "firebase/auth";
 
 
@@ -48,11 +48,18 @@ type AuthContextData = {
   SignWithGoogle: () => any;
   SignWithGithub: () => any;
   auth: any;
+  authProvider: string;
+  setAuthProvider: (authProvider: string) => void;
+  UnlinkProvider: () => any;
 }
 
 export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
+
+  //vai receber o tipo de login em caso de provedores como google, github
+  const [authProvider, setAuthProvider] = useState<string>('');
+
 
   //recebe todas as propriedades ao chamar getAuth, podendo entao...
   //...receber os users do Firebase
@@ -72,35 +79,54 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     return signInWithEmailAndPassword(auth, email, password)
   }
   //Logout
-  function Logout() {
-    return signOut(auth)
+  async function Logout() {
+    return await signOut(auth).then(() => {
+      setAuthProvider('');//como fez logout entao provider eh zero
+    });
   }
 
-  function SignWithGoogle(){
+  /* faz o desvinculo com provedor de login */
+  function UnlinkProvider() {
+    console.log(authProvider);
+    if (authProvider === 'google') {
+      const provider = new GoogleAuthProvider();
+
+      const user: any = auth.currentUser;
+
+      return unlink(user, provider.providerId).then(() => {
+        alert('Conta desvinculada com sucesso!')
+        signOut(auth);
+      }).catch((error) => {
+        alert("erro ao desvincular conta, tente novamente");
+        console.log('erro ao desvincular conta: ', error)
+      });
+    }
+    else if (authProvider === 'github') {
+      const provider = new GithubAuthProvider();
+
+      const user: any = auth.currentUser;
+
+      return unlink(user, provider.providerId).then(() => {
+        alert('Conta desvinculada com sucesso!')
+        signOut(auth);
+      }).catch((error) => {
+        alert("erro ao desvincular conta, tente novamente");
+        console.log('erro ao desvincular conta: ', error)
+      });
+    }
+  }
+
+  function SignWithGoogle() {
     const provider = new GoogleAuthProvider();
 
     return signInWithPopup(auth, provider);
 
   }
-  function SignWithGithub(){
+  function SignWithGithub() {
     const provider = new GithubAuthProvider();
 
     return signInWithPopup(auth, provider);
-
   }
-
-  /*  
-      function ResetPassword(email) {
-          return auth.sendPasswordResetEmail(email)
-      }
-   
-      function UpdateEmail(email) {
-          return currentUser.updateEmail(email)
-      }
-   
-      function UpdatePassword(password) {
-          return currentUser.updatePassword(password)
-      } */
 
 
   useEffect(() => {
@@ -108,7 +134,14 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
       setCurrentUser(user);
       setLoading(false);
 
+      /* provedores de login, sendo varios ou 1 de password */
+      user?.providerData.forEach((profile) => {
+        console.log('userProvider', profile.providerId);
+      });
+
+
     });
+
 
     return unsubscribe //quando auth mudar, ou seja, se ele receber um currentUser
     //ou se ele na otiver nd, ele vai alterar
@@ -124,7 +157,10 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         Logout,
         SignWithGoogle,
         SignWithGithub,
-        auth
+        auth,
+        authProvider,
+        setAuthProvider,
+        UnlinkProvider,
       }}
     >
       {children}

@@ -9,7 +9,7 @@ import styles from './home.module.scss';
 import { FaTwitter, FaGithub, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import { FiMail } from 'react-icons/fi';
 
-
+import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 
 export default function Home() {
 
@@ -19,6 +19,7 @@ export default function Home() {
   const [aboutMe, setAboutMe] = useState<boolean>(false);
   const [loginPageApp, setLoginPageApp] = useState<boolean>(true);
 
+  /* boolean qnd passa mouse embaixo do footer */
   const [onMouseFooter, setOnMouseFooter] = useState<boolean>(false);
 
 
@@ -41,18 +42,21 @@ export default function Home() {
     setLoginPageApp(false);
 
     console.log(aboutMe)
-
   }
-
 
   const router = useRouter();
 
   const {
     currentUser,
-    Logout
+    Logout,
+    auth,
+    authProvider,
+    UnlinkProvider
   } = useAuth();
 
   useEffect(() => {
+    console.log('auth', auth)
+
     if (currentUser) {
       console.log('Usuário logado!');
     }
@@ -63,6 +67,40 @@ export default function Home() {
 
   if (!currentUser) {
     return null;
+  }
+
+  function passwordPrompt() {
+    const pass = prompt('Digite a nova senha: ', '');
+
+
+    if (pass === '') {
+      alert('Digite uma senha ou cancele a operação!');
+      passwordPrompt();
+    }
+    else if (pass !== null && pass.length < 8) {
+      alert('digite uma senha superior a 8 dígitos!');
+      passwordPrompt();
+    }
+    else if (pass !== null && pass.length >= 8) {
+      const oldPass = prompt('Digite sua antiga senha')
+      const credential = EmailAuthProvider.credential(
+        auth.currentUser.email,
+        //@ts-ignore
+        oldPass
+      );
+      /* para atualizar senha eh preciso fazer a reautenticacao do user */
+      reauthenticateWithCredential(auth.currentUser, credential).then(() => {
+        updatePassword(auth.currentUser, pass).then(() => {
+          alert('senha atualizada com sucesso!');
+        }).catch((error) => {
+          alert("erro ao atualizar a senha, por favor tente novamente");
+          console.log('erro ao atualizar senha: ', error);
+        })
+      }).catch(error => {
+        alert('Nao foi possivel reautenticar');
+        console.log('Erro ao reautenticar', error);
+      });
+    }
   }
 
 
@@ -94,11 +132,34 @@ export default function Home() {
 
             >Sobre a aplicação</span>
 
+            <li className='nav-item dropdown'>
+              <span className={`dropdown-toggle ${styles.configuracoes}`}
+                id='dropdownMenu'
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              /* onClick={Logout} */
+              >Configurações</span>
+              <ul className={`dropdown-menu ${styles.configMenu}`} aria-labelledby='dropdownMenu' >
+                <li><a
+                  /* se authprovider nao existir quer dizer que nao foi feito login pelo provider */
+                  className={`dropdown-item ${!authProvider && ('disabled')}`}
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  title="Desvincular conta com provedor de login"
+                  onClick={UnlinkProvider}
+                >Desvincular conta</a></li>
+                <li><a
+                  className='dropdown-item'
+                  onClick={passwordPrompt}
+                >Alterar Senha</a></li>
+                <li><hr className="dropdown-divider" /></li>
+                <li><a className='dropdown-item' onClick={Logout}>Sair</a></li>
+              </ul>
+            </li>
 
-            <span className={styles.sair}
-              onClick={Logout}
-            >Sair</span>
           </div>
+
 
         </div>
       </nav>

@@ -4,15 +4,21 @@ import { useRouter } from 'next/router';
 import styles from './recuperar.module.scss';
 import { FaUserCircle } from 'react-icons/fa';
 
+import { useState } from 'react';
+
 import { useAuth } from '../../components/context/authContext';
 
 
 import { useEffect } from 'react';
+import { sendPasswordResetEmail, getAuth } from 'firebase/auth';
 
 export default function recuperarSenha() {
 
+
+  const [email, setEmail] = useState('');
+
   const {
-    currentUser
+    currentUser,
   } = useAuth();
 
 
@@ -25,6 +31,25 @@ export default function recuperarSenha() {
       router.push('/home');
     }
   }, [currentUser]);
+
+
+  const auth = getAuth();
+
+  function resetPass() {
+    if (email.length > 10) {
+      return sendPasswordResetEmail(auth, email).then(() => {
+        alert('Envio da senha para reset enviado com sucesso!');
+      }).catch((error) => {
+        alert("não foi possivel resetar a senha ou não existe email cadastrado");
+        console.log('error: ', error);
+      })
+    }
+
+
+  }
+
+
+
 
   return (
     <div className={styles.container}>
@@ -50,12 +75,13 @@ export default function recuperarSenha() {
               className={styles.input}
               placeholder='Email'
               type="email"
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div >
         </div >{/* div inputGroup */}
 
         <div className={styles.button}>
-          <button>Recuperar Senha</button>
+          <button onClick={() => resetPass}>Recuperar Senha</button>
         </div>
 
         <div className={styles.voltar}>

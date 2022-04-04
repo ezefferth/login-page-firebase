@@ -94,32 +94,39 @@
         /* cor de todos span */
         color: #fff;
       }
-      .aboutMe {
-        cursor: pointer;
-        padding-right: 1.5rem;
-        opacity: 0.7;
-        transition: filter 0.3s;
-      }
-      .aboutMe:hover {
-        filter: brightness(0.8);
-      }
+      .dados {
+        a {
+          cursor: pointer;
+        }
 
-      .about {
-        cursor: pointer;
-        padding-right: 5rem;
-        opacity: 0.85;
-        transition: filter 0.3s;
-      }
-      .about:hover {
-        filter: brightness(0.8);
-      }
+        display: flex;
+        align-items: center; //alinha todos items no centro
+        .aboutMe {
+          cursor: pointer;
+          padding-right: 1.5rem;
+          opacity: 0.7;
+          transition: filter 0.3s;
+        }
+        .aboutMe:hover {
+          filter: brightness(0.8);
+        }
+        .about {
+          cursor: pointer;
 
-      .sair {
-        cursor: pointer;
-        transition: filter 0.3s;
-      }
-      .sair:hover {
-        filter: brightness(0.8);
+          opacity: 0.85;
+          transition: filter 0.3s;
+          padding-right: 1rem;
+        }
+        .about:hover {
+          filter: brightness(0.8);
+        }
+        .configuracoes {
+          cursor: pointer;
+          transition: filter 0.3s;
+        }
+        .configuracoes:hover {
+          filter: brightness(0.8);
+        }
       }
     } //fim containerNav
   } //fim navbar
@@ -152,16 +159,16 @@
         color: #fff;
         padding-bottom: 1rem;
       }
-      .trace{
+      .trace {
         border-top: 1px solid var(--gray-100);
         margin-left: 15rem;
         margin-right: 15rem;
         transition: margin-left 0.5s, margin-right 0.5s;
-       }
-       .trace:hover{
+      }
+      .trace:hover {
         margin-left: 25rem;
         margin-right: 25rem;
-       }
+      }
       .divRow {
         //text-align: left;
         .colOne,
@@ -172,7 +179,7 @@
           text-align: left;
           margin-left: 4rem;
         }
-  
+
         .colTwo {
           .colTwoIcons {
             margin-right: 0.75rem;
@@ -185,7 +192,7 @@
           }
         }
         .colTree {
-          h5{
+          h5 {
             margin-top: 0;
           }
           .colTreeDiv {
@@ -201,8 +208,7 @@
             }
           }
         }
-      }//fim divRow
-
+      } //fim divRow
     }
     .outFooter {
       width: 100vw;
@@ -215,13 +221,11 @@
       span {
         font-size: 12px;
         color: #fff;
-        
       }
-    }//fimOutFoorter
-
-    
+    } //fimOutFoorter
   }
-  .footer:hover {/* faz subir o tam do footer para 20vh */
+  .footer:hover {
+    /* faz subir o tam do footer para 20vh */
     height: 20vh;
   }
 } //fim container
